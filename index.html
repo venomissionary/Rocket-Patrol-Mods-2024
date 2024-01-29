@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rocket Patrol</title>
+    <script src="./lib/phaser.js"></script>
+    <script src="./src/Prefabs/Rocket.js"></script>
+    <script src="./src/Prefabs/Spaceship.js"></script>
+    <script src="./src/Menu.js"></script>
+    <script src="./src/Play.js"></script>
+    <script src="./src/Main.js"></script>
+    <style>
+        body {
+            background-color: beige;
+        }
+
+        @font-face {
+            font-family: EightBitext;
+            src: url(./assets/8bit16.ttf) format('truetype');
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
+    <script>
+        WebFont.load({
+            custom: {
+                families: ['EightBitext']
+            },
+            active: function() {
+                console.log('Fonts loaded!');
+            }
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>
