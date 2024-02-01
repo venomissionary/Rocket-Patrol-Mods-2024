@@ -18,9 +18,9 @@ class Play extends Phaser.Scene {
 
       this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0)
 
-      this.greenAlien = new Spaceship(this, game.config.width, Phaser.Math.Between(100,300), 'NotSpaceInvadertrustme', 0, 40).setOrigin(0, 0)
+      this.greenAlien = new Spaceship(this, game.config.width, Phaser.Math.Between(100,300), 'NotSpaceInvadertrustme', 0, 40).setOrigin(0, 0)  //new enemy type.
       this.ship01 = new Spaceship(this, game.config.width, Phaser.Math.Between(125,200), 'spaceship', 0, 30).setOrigin(0, 0);
-      this.ship02 = new Spaceship(this, game.config.width, Phaser.Math.Between(250,260), 'spaceship', 0, 20).setOrigin(0,0)
+      this.ship02 = new Spaceship(this, game.config.width, Phaser.Math.Between(250,260), 'spaceship', 0, 20).setOrigin(0,0) //SpaceShips will move at different heights 
       this.ship03 = new Spaceship(this, game.config.width, Phaser.Math.Between(300,380),'spaceship', 0, 10).setOrigin(0,0)
 
 
@@ -48,28 +48,33 @@ class Play extends Phaser.Scene {
 
     this.time.addEvent({
       delay: 30000,
-      callback: this.FasterShipSpeed,
+      callback: this.fasterShipSpeed, //"It's own timer and calls fasterShipSpeed after 30 secs"
       callbackScope: this
     }) 
+
+    this.startTime = this.time.now
+    this.totalTime = game.settings.gameTimer
    
     scoreConfig.fixedWidth = 0
     
     console.log('Game Timer:', game.settings.gameTimer)
-
-    this.startTime = this.time.now
-    this.totalTime = game.settings.gameTimer
+    
+   this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig)
+   this.timeLeft = this.add.text(game.config.width/2, game.config.height/2 + 64, '', scoreConfig).setOrigin(0.5).setScale(0.8).setPosition(500,70)
 
     this.gameOver = false
 
-    this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig)
-    this.timeLeft = this.add.text(game.config.width/2, game.config.height/2 + 64, '', scoreConfig).setOrigin(0.5).setScale(0.8).setPosition(500,70)
+    scoreConfig.fixedWidth = 0
+
+    this.startTime = this.time.now
+    this.totalTime = game.settings.gameTimer
 
     this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
         this.add.image(game.config.width/2, game.config.height/2 - borderUISize - borderPadding,'Button2').setOrigin(0.3).setScale(0.2).setDisplaySize(300,300)
         .setPosition(250,220)
         this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5).setPosition(310,180)
 
-        this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart \nor <- for Menu', scoreConfig).setOrigin(0.5).setScale(0.5).setPosition(310,250)
+        this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart \nor <- for Menu', scoreConfig).setOrigin(0.5).setScale(0.5).setPosition(310,250) //game over menu 
         this.add.text(game.config.width/2, game.config.height/2, 'HighScore', scoreConfig).setOrigin(0.5).setPosition(310,300)
         this.add.text(game.config.width / 2, game.config.height / 2 - borderUISize -borderPadding, 
         `${highScore}`, scoreConfig).setOrigin(0.5).setPosition(320, 370).setScale(1)
@@ -78,24 +83,24 @@ class Play extends Phaser.Scene {
         this.timeLeft.setAlpha(0)
     }, null, this)
 
-    }
+  
+  }
 
     update() {
-        this.MoonImage.tilePositionX -= 0.8
+        this.MoonImage.tilePositionX -= 0.8 //moon tilesprite moves along side the background
         this.starfield.tilePositionX -= 0.3
-
         if (!this.gameOver) {
 
         this.p1Rocket.update()             
         this.ship01.update()               
         this.ship02.update()
         this.ship03.update()
-        this.greenAlien.update()
+        this.greenAlien.update() //new alien sprite. 40 points 
 
-     
 
-        const runningTime = this.time.now - this.startTime;
-        const remainingTime = Math.max(0, Math.ceil(this.totalTime - runningTime));
+        const currentTime = this.time.now;
+        const runningTime = currentTime - this.startTime
+        const remainingTime = Math.max(0, Math.ceil(this.totalTime - runningTime)); //timer display 
         const remainingSec = Math.ceil(remainingTime / 1000);
         this.timeLeft.setText(`Time: ${remainingSec}`)
 
@@ -104,6 +109,8 @@ class Play extends Phaser.Scene {
 
           
         }
+
+
     }
 
          if (this.checkCollision(this.p1Rocket, this.greenAlien)) {
@@ -138,11 +145,11 @@ class Play extends Phaser.Scene {
 
     }
 
-    FasterShipSpeed() {
+    fasterShipSpeed() {
       if (!this.spaceshipSpeed) {
         this.greenAlien.increaseSpeed()
         this.ship03.increaseSpeed()
-        this.ship02.increaseSpeed()
+        this.ship02.increaseSpeed() //boost ships speed 
         this.ship01.increaseSpeed()
       }
     }
@@ -172,7 +179,9 @@ class Play extends Phaser.Scene {
           ship.reset()                         
           ship.alpha = 1                      
           boom.destroy()
-          this.sound.play('sfx-explosion')     
+          const soundEffects = ['Sound1', 'Sound2','Sound3', 'Sound4']
+          const randomize = soundEffects[Math.floor(Math.random() * soundEffects.length)] //4 explosion sounds played randomly
+          this.sound.play(randomize)
           this.scoreLeft.text = this.p1Score
 
           if (this.p1Score > highScore) {

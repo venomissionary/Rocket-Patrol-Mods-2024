@@ -22,6 +22,14 @@ class Menu extends Phaser.Scene {
 
         this.load.audio('Music', './assets/TimeWarp.mp3')
 
+        this.load.audio('Sound1', './assets/CustomExplosion1.wav')
+        this.load.audio('Sound2', './assets/CustomExplosion2.wav')  
+        this.load.audio('Sound3', './assets/CustomExplosion3.wav')
+        this.load.audio('Sound4', './assets/CustomExplosion4.wav')
+        
+
+
+
         this.load.spritesheet('explosion', './assets/explosion.png', {
             frameWidth: 64,
             frameHeight: 32,
@@ -32,10 +40,10 @@ class Menu extends Phaser.Scene {
     }
 
     create() {
-        this.space = this.add.tileSprite(0, 0, 640, 480, 'starfield2').setOrigin(0, 0).setAlpha(0.13)
-
+        this.space = this.add.tileSprite(0, 0, 640, 480, 'starfield2').setOrigin(0, 0).setAlpha(0.13)  //new space titlesprite for menu
+        
         if (!ThemeSong || !ThemeSong.isPlaying) {
-            ThemeSong = this.sound.add('Music',  {loop: true, volume: 0.5})
+            ThemeSong = this.sound.add('Music',  {loop: true, volume: 0.5})  //custom music
             ThemeSong.play()
         }
 
@@ -46,7 +54,7 @@ class Menu extends Phaser.Scene {
         })
 
         let menuConfig = {
-            fontFamily: 'EightBitext',    
+            fontFamily: 'EightBitext',    //added custom font 
             fontSize: '28px',
             backgroundColor: '#F3B141',
             color: '#843605',
@@ -57,14 +65,14 @@ class Menu extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-        
 
+        //new buttons to click on
 
         this.add.image(game.config.width/2, game.config.height/2 - borderUISize - borderPadding,'MenuButton1').setOrigin(0.3).setScale(0.5).setDisplaySize(200,170)
         .setPosition(150,125)
         this.add.image(game.config.width/2, game.config.height/2 - borderUISize - borderPadding,'MenuButton1').setOrigin(0.3).setScale(0.5).setDisplaySize(200,170)
         .setPosition(400,125)
-        this.add.image(game.config.width/2, game.config.height/2 - borderUISize - borderPadding,'Button2').setOrigin(0.3).setScale(0.5).setDisplaySize(275,250)
+        this.add.image(game.config.width/2, game.config.height/2 - borderUISize - borderPadding,'Button2').setOrigin(0.3).setScale(0.5).setDisplaySize(275,250) 
         .setPosition(100, 300)
         this.add.image(game.config.width/2, game.config.height/2 - borderUISize - borderPadding,'Button2').setOrigin(0.3).setScale(0.5).setDisplaySize(200,150)
         .setPosition(450, 350)
@@ -84,7 +92,7 @@ class Menu extends Phaser.Scene {
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'hit the spaceships\n to earn points!', menuConfig).setOrigin(0.5).setPosition(150, 375).setScale(0.6)
 
         this.add.text(game.config.width / 2, game.config.height / 2 - borderUISize -borderPadding, 
-        `${highScore}`, menuConfig).setOrigin(0.5).setPosition(490, 380).setScale(1);
+        `${highScore}`, menuConfig).setOrigin(0.5).setPosition(490, 380).setScale(1); //highscore display
 
         
         EasyButton.on('pointerdown', () => {
@@ -93,7 +101,7 @@ class Menu extends Phaser.Scene {
                 gameTimer: 65000
             }
             this.sound.play('sfx-select')
-            this.scene.start('playScene')
+            this.scene.start('playScene')    //point click instead of arrow keys.
         });
 
         HardButton.on('pointerdown', () => {
@@ -109,6 +117,8 @@ class Menu extends Phaser.Scene {
 
     update() {
         this.space.tilePositionX -= 0.2
+
+
     }
 
   }

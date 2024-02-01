@@ -1,0 +1,51 @@
+1/31/2024
+Steven hernandez 
+Rocket Patrol 2: Electric Boogaloo 
+20+ hours. 
+
+CMPM 120
+
+- Create a new title screen (New Artwork, typgraphy, layout) (3)
++ new title screen featuring Hard mode and easy mode, High Score 
+and tutorial panel
+
+- Implement "Fire UI' text from original game (1)
++ Used WebFont loader to generate the custom font identical to the orginal 
+https://github.com/typekit/webfontloader
+
+- Create a new Scrolling sprite for the background (1)
++ Moon sprite scrolls through the play scene. 
+
+- Add your own copyright free music. (1)
++ Free music from my favorite playlist 
+https://www.youtube.com/watch?v=7IX0nvuMnQw&list=PLj5238W3TdtNeXx0E_Dcxk3iKKHGXSE3_&index=3
+
+- Track a high score that persist across scenes and display it in the UI (1)
++ Your highest score will be saved and appear in the menu after each ends
+after going to the menu. Do not refresh page
+
+
+- Display the time remaining in seconds on the screen  (3)
++ the timer display are not in sync with the game timer. The display timer
+runs at the start of the menu for some reason. At least it displays
+
+- Implement the speed increase that after 30 seconds in the original game (1)
+ + Every 30 seconds the spaceship speed increases by 2. 
+
+- Create a new enemy spaceship type that is smaller moves faster and is worth more points (5)
++ added spaceinvader alien sprite, worth 40points  
+
+
+- Allow the player to control the rocket after it's fired (1)
++ move the player like normal except even after shooting
+
+- randomize each spaceship movement at the start of each play. (1)
++ All spaceships are randomized on how high they spawn on the scene
+
+- Create 4 new explosion sound effects and randomize which one plays on impact (3)
++ 4 new explosion sounds that are randomized. 
+
+
+
+
+

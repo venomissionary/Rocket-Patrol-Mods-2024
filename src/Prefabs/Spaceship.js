@@ -22,6 +22,6 @@ class Spaceship extends Phaser.GameObjects.Sprite {
      }
 
      increaseSpeed() {
-        this.moveSpeed += 2
+        this.moveSpeed += 2 //increases speed by 2 when called
      }
 }
